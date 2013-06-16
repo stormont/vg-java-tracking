@@ -24,6 +24,7 @@ public class KeyValueToJSONTest {
 		
 		assertTrue(data.key.contentEquals("testkey"));
 		assertTrue(data.value.contentEquals("testvalue"));
+		assertTrue(data.type.contentEquals("testkeyvaluetojson"));
 		assertTrue(data.timestamp >= start);
 		assertTrue(data.timestamp <= end);
 	}

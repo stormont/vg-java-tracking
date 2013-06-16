@@ -4,7 +4,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 public abstract class KeyValueToJSON extends KeyValue implements IToJSON {
 	
-	protected final String type;
+	public final String type;
 
 	public KeyValueToJSON(final String key, final String value, final String type) {
 		super(key, value);
