@@ -24,10 +24,6 @@ public abstract class KeyValueToJSON extends KeyValue implements IToJSON {
 		this.type = type;
 	}
 
-	/**
-	 * Converts the object data to well-formatted JSON
-	 * @return The JSON representation of the object
-	 */
 	@Override
 	public String toJSON() {
 		final StringBuilder sb = new StringBuilder();
