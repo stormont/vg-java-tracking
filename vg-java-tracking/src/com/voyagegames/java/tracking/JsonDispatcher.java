@@ -4,9 +4,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -14,40 +12,6 @@ import java.util.List;
  */
 public class JsonDispatcher implements IDispatcher {
 	
-	/**
-	 * A configuration class for JsonDispatcher objects to consume
-	 */
-	public class JsonDispatcherConfig {
-
-		/**
-		 * A set of callbacks for a JsonDispatcher object to use.
-		 * JsonDispatcher will throw an exception is this is not set.
-		 */
-		public IDispatchCallback callback = null;
-		/**
-		 * A set of tracking values to track in the header of every dispatch
-		 */
-		public final List<KeyValueToJSON> trackingHeader = new ArrayList<KeyValueToJSON>();
-		/**
-		 * Whether to use "debug" tracking mode.
-		 * This does not upload and uses the callback debugTrack() method instead.
-		 */
-		public boolean debugMode = false;
-		/**
-		 * Whether to compress the dispatched data
-		 */
-		public boolean useCompression = true;
-		/**
-		 * The maximum allowed upload size
-		 */
-		public int maxUploadSize = 1024 * 1024;  // defaults to 1 MB
-		/**
-		 * The URL to dispatch tracking data to
-		 */
-		public String url;
-		
-	}
-
 	/**
 	 * The configuration for the dispatcher
 	 */
@@ -115,13 +79,13 @@ public class JsonDispatcher implements IDispatcher {
 							Utilities.compress(buffer.array()) :
 							output.getBytes("UTF-8");
 			
-			if (result.length > config.maxUploadSize) {
+			if (config.maxUploadSize > 0 && result.length > config.maxUploadSize) {
 				config.callback.error("JsonDispatcher dispatch data exceeds config maxUploadSize");
 				return false;
 			}
 			
 			if (config.debugMode) {
-				config.callback.debugTrack(output);
+				config.callback.debugTrack(result);
 			} else {
 				final URL url = new URL(config.url);
 				final HttpURLConnection connection = (HttpURLConnection) url.openConnection();

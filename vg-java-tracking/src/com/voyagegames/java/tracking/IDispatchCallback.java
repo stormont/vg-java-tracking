@@ -9,7 +9,7 @@ public interface IDispatchCallback {
 	 * Output tracked data to a debug callback
 	 * @param trackingOutput The tracked data output
 	 */
-	public void debugTrack(String trackingOutput);
+	public void debugTrack(byte[] trackingOutput);
 	/**
 	 * Output an error message
 	 * @param error The message to output

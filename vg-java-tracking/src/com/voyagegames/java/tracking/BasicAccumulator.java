@@ -9,32 +9,28 @@ import java.util.List;
 public class BasicAccumulator implements IAccumulator {
 	
 	/**
-	 * A configuration class for BasicTracker objects to consume
+	 * The configuration for the accumulator
 	 */
-	public class BasicTrackerConfig {
-
-		/**
-		 * The maximum allowed number of tracked items.
-		 * 0 indicates no limit.
-		 */
-		public int maxTrackedItems = 0;
-		
-	}
-
-	/**
-	 * The configuration for the tracker
-	 */
-	protected final BasicTrackerConfig config;
+	protected final BasicAccumulatorConfig config;
 	/**
 	 * The current set of tracking data
 	 */
 	protected final List<KeyValue> trackingData;
 	
 	/**
-	 * Creates a BasicTracker object
-	 * @param config The configuration data for the tracker
+	 * Creates a BasicAccumulator object
+	 * @param config The configuration data for the accumulator
 	 */
-	public BasicAccumulator(final BasicTrackerConfig config) {
+	public BasicAccumulator() {
+		this.config = new BasicAccumulatorConfig();
+		this.trackingData = new ArrayList<KeyValue>();
+	}
+	
+	/**
+	 * Creates a BasicAccumulator object
+	 * @param config The configuration data for the accumulator
+	 */
+	public BasicAccumulator(final BasicAccumulatorConfig config) {
 		this.config = config;
 		this.trackingData = new ArrayList<KeyValue>();
 	}

@@ -88,20 +88,8 @@ public class TrackerTest {
 		
 	}
 	
-	private Tracker<TestAccumulator, TestDispatcher> buildTracker() {
-		final TestAccumulator acc = new TestAccumulator();
-		final TestDispatcher disp = new TestDispatcher();
-		return new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
-	}
-	
 	private void trackValue(Tracker<?, ?> tracker) {
 		tracker.trackAppEvent(new AppEvent("testkey", "testvalue"));
-	}
-
-	@Test
-	public void testTracker() {
-		final Tracker<?, ?> tracker = buildTracker();
-		assertTrue(null != tracker);
 	}
 
 	@Test
@@ -124,9 +112,12 @@ public class TrackerTest {
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
 
+		trackValue(tracker);
+		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(0 == disp.getTrackingData().size());
 		assertTrue(!tracker.dispatch(acc));
-		assertTrue(!tracker.dispatch(null));
-		assertTrue(!tracker.dispatch(new TestAccumulator()));
+		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(0 == disp.getTrackingData().size());
 	}
 
 	@Test
@@ -157,10 +148,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final AppEvent data = new AppEvent("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackAppEvent(new AppEvent("testkey", "testvalue"));
+		tracker.trackAppEvent(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 	@Test
@@ -168,10 +161,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final AppSetting data = new AppSetting("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackAppSetting(new AppSetting("testkey", "testvalue"));
+		tracker.trackAppSetting(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 	@Test
@@ -179,10 +174,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final CustomEvent data = new CustomEvent("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackCustomEvent(new CustomEvent("testkey", "testvalue"));
+		tracker.trackCustomEvent(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 	@Test
@@ -190,10 +187,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final CustomSetting data = new CustomSetting("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackCustomSetting(new CustomSetting("testkey", "testvalue"));
+		tracker.trackCustomSetting(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 	@Test
@@ -201,10 +200,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final UserAction data = new UserAction("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackUserAction(new UserAction("testkey", "testvalue"));
+		tracker.trackUserAction(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 	@Test
@@ -212,10 +213,12 @@ public class TrackerTest {
 		final TestAccumulator acc = new TestAccumulator();
 		final TestDispatcher disp = new TestDispatcher();
 		final Tracker<?, ?> tracker = new Tracker<TestAccumulator, TestDispatcher>(acc, disp);
+		final UserView data = new UserView("testkey", "testvalue");
 
 		assertTrue(0 == acc.getTrackingData().size());
-		tracker.trackUserView(new UserView("testkey", "testvalue"));
+		tracker.trackUserView(data);
 		assertTrue(1 == acc.getTrackingData().size());
+		assertTrue(data == acc.getTrackingData().get(0));
 	}
 
 }
