@@ -11,6 +11,4 @@ public class BasicAccumulatorConfig {
 	 */
 	public int maxTrackedItems = 0;
 	
-	public BasicAccumulatorConfig() {}
-	
 }
