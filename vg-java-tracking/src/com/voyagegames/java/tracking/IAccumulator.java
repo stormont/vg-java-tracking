@@ -1,15 +1,21 @@
 package com.voyagegames.java.tracking;
 
+import java.util.Collection;
+
 /**
  * An interface for managing and dispatching trackable data
  */
-public interface ITracker {
+public interface IAccumulator {
 
 	/**
-	 * Attempts to dispatch the tracked data so far
-	 * @return Whether the dispatch was successful
+	 * Gets the accumulated tracking data
+	 * @return A list of the tracked data
 	 */
-	public boolean dispatch();
+	public Collection<? extends KeyValue> getTrackingData();
+	/**
+	 * Clears the current set of tracked data
+	 */
+	public void resetTrackingData();
 	/**
 	 * Track a lifecycle app event
 	 * @param data The data to track

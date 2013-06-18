@@ -3,7 +3,7 @@ package com.voyagegames.java.tracking;
 /**
  * An interface for defining callbacks used by an ITracker
  */
-public interface ITrackerCallback {
+public interface IDispatchCallback {
 	
 	/**
 	 * Output tracked data to a debug callback
