@@ -11,7 +11,13 @@ public class Tracker
 		<TIAccumulator extends IAccumulator, TIDispatcher extends IDispatcher>
 		implements IAccumulator, IDispatcher {
 
+	/**
+	 * The accumulator for tracked data
+	 */
 	protected final TIAccumulator accumulator;
+	/**
+	 * The dispatcher of tracked data
+	 */
 	protected final TIDispatcher dispatcher;
 	
 	/**
