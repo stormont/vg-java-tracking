@@ -36,16 +36,20 @@ public class JsonDispatcher implements IDispatcher {
 	protected String generateOutput(final IAccumulator accumulator) {
 		final StringBuilder sb = new StringBuilder();
 		
+		sb.append("{\"data\":[");
+		
 		for (final KeyValueToJSON kv : config.trackingHeader){
-			sb.append(kv.toJSON());
+			sb.append(kv.toJSON() + ",");
 		}
 		
 		final Collection<? extends KeyValue> trackedData = accumulator.getTrackingData();
 		
 		for (final KeyValue kv : trackedData) {
-			sb.append(((KeyValueToJSON)kv).toJSON());
+			sb.append(((KeyValueToJSON)kv).toJSON() + ",");
 		}
 		
+		sb.deleteCharAt(sb.length() - 1);
+		sb.append("]}");
 		return sb.toString();
 	}
 	

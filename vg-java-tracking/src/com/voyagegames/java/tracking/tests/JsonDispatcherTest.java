@@ -59,7 +59,9 @@ public class JsonDispatcherTest {
 		assertTrue(null == callback.output);
 		assertTrue(disp.dispatch(acc));
 		assertTrue(null != callback.output);
-		assertTrue(event.toJSON().length() > callback.output.length);
+		
+		final String output = "{\"data\":[" + event.toJSON() + "]}";
+		assertTrue(output.length() > callback.output.length);
 	}
 
 	@Test
@@ -83,7 +85,8 @@ public class JsonDispatcherTest {
 		assertTrue(!callback.errorCalled);
 		
 		try {
-			assertArrayEquals(event.toJSON().getBytes("UTF-8"), callback.output);
+			final String output = "{\"data\":[" + event.toJSON() + "]}";
+			assertArrayEquals(output.getBytes("UTF-8"), callback.output);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -113,7 +116,7 @@ public class JsonDispatcherTest {
 		assertTrue(!callback.errorCalled);
 		
 		try {
-			final String output = header.toJSON() + event.toJSON();
+			final String output = "{\"data\":[" + header.toJSON() + "," + event.toJSON() + "]}";
 			assertArrayEquals(output.getBytes("UTF-8"), callback.output);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
